@@ -22,13 +22,29 @@ export class InventoryPage {
   }
 
   async addItemToCartByName(itemName: string): Promise<void> {
-    const item = this.page.locator('.inventory_item').filter({ hasText: itemName });
+    const item = this.getInventoryItemByName(itemName);
     await item.getByRole('button', { name: /add to cart/i }).click();
   }
 
   async removeItemFromCartByName(itemName: string): Promise<void> {
-    const item = this.page.locator('.inventory_item').filter({ hasText: itemName });
+    const item = this.getInventoryItemByName(itemName);
     await item.getByRole('button', { name: /remove/i }).click();
+  }
+
+  getInventoryItemByName(itemName: string): Locator {
+    return this.page.locator('.inventory_item').filter({ hasText: itemName });
+  }
+
+  getInventoryItemPrice(itemName: string): Locator {
+    return this.getInventoryItemByName(itemName).locator('.inventory_item_price');
+  }
+
+  getInventoryItemName(itemName: string): Locator {
+    return this.getInventoryItemByName(itemName).locator('.inventory_item_name');
+  }
+
+  getCartBadge(): Locator {
+    return this.cartBadge;
   }
 
   async goToCart(): Promise<void> {

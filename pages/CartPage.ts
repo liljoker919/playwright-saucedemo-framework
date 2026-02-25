@@ -48,6 +48,14 @@ export class CartPage {
     return (await this.confirmationHeader.textContent()) ?? '';
   }
 
+  getCartItemName(index: number): Locator {
+    return this.cartItems.nth(index).locator('.inventory_item_name');
+  }
+
+  getCartItemPrice(index: number): Locator {
+    return this.cartItems.nth(index).locator('.inventory_item_price');
+  }
+
   async getCartItemCount(): Promise<number> {
     return this.cartItems.count();
   }
